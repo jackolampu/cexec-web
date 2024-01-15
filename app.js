@@ -1,4 +1,9 @@
 const express = require("express");
+const expressLayouts = require('express-ejs-layouts');
+const fileUpload = require('express-fileupload');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const convertSass = require("sass-folder-converter");
@@ -6,25 +11,54 @@ const convertSass = require("sass-folder-converter");
 //TODO : https://www.npmjs.com/package/express-mailer
 
 // Convert SASS to CSS :
-convertSass(__dirname + "/public/sass/", __dirname + "/public/css/");
+//convertSass(__dirname + "/public/sass/", __dirname + "/public/css/");
 
 // Create express instance :
-global.server = express();
+const app = express();
+const port = process.env.PORT || 3001;
 
-// Setup the logger :
-server.use(require("morgan")("dev"));
+require('dotenv').config();
+
+app.use(express.urlencoded( { extended: true } ));
 
 // Define public folder : 
-server.use(express.static(__dirname + "/public"));
+app.use(express.static('public'));
+app.use(expressLayouts);
 
-// Setup views folder :
-server.set("views", __dirname + "/views");
+
+app.use(cookieParser('CookingBlogSecure'));
+app.use(session({
+  secret: 'CookingBlogSecretSession',
+  saveUninitialized: true,
+  resave: true
+}));
+
+
+app.use(flash());
+app.use(fileUpload());
+
+app.set('layout', './layouts/main');
 
 // Setup view engine :
-server.set("view engine", "ejs");
+app.set('view engine', 'ejs');
+
+const routes = require('./server/routes/webRoutes.js')
+app.use('/', routes);
+
+
+
+
+
+
+// Setup the logger :
+//server.use(require("morgan")("dev"));
+
+
+// Setup views folder :
+//server.set("views", __dirname + "/views");
 
 // Setup sessions and cookies :
-server.use(require("cookie-parser")());
+/*server.use(require("cookie-parser")());
 
 server.use(require("express-session")({
     secret: "09e60df3-e2d7-4c10-b103-380da8d5719b",
@@ -33,11 +67,14 @@ server.use(require("express-session")({
     cookie: { 
         secure: false // set in true if the website use https 
     }
-}));
+}));*/
+
+
+
 
 // Add body parser middleware for get body content (for post method) :
-server.use(bodyParser.json()); // support json encoded bodies
-server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Middleware for secure pages access :
 
@@ -53,7 +90,7 @@ server.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 let privileges = JSON.parse(fs.readFileSync("privileges.json", {encoding: "utf-8"}));
 
-server.use((request, response, next) => {
+app.use((request, response, next) => {
     if(!request.session.privileges) request.session.privileges = [];
 
     for(let [key, value] of Object.entries(privileges)){
@@ -78,10 +115,10 @@ server.use((request, response, next) => {
 // Routes and 404 error :
 fs.readdirSync(__dirname + "/server/routes/").forEach(fileName => require("./server/routes/" + fileName)); //TODO: ajout du support des sous dossier.
 
-server.get("*", (request, response) => {
+app.get("*", (request, response) => {
     response.render("error");
     response.status(404);
 });
 
 // Listen port :
-server.listen(3000);
+app.listen(port, ()=> console.log(`Listening to port ${port}`));
