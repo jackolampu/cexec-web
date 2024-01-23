@@ -7,6 +7,4 @@ db.once('open', function(){
   console.log('Connected')
 });
 
-// Models
-//require('./Category');
-//require('./Recipe');
+require('./menu');

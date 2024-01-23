@@ -1,6 +1,6 @@
 require('../models/db');
 //const Category = require('../models/Category');
-//const Recipe = require('../models/Recipe');
+const Menu = require('../models/menu');
 
 /**
  * GET /
@@ -8,8 +8,10 @@ require('../models/db');
 */
 exports.homepage = async(req, res) => {
     try {
-     
-      res.render('home', { title: 'Cexec Cofee - Home'/*, categories, food */} );
+      
+      const menu = await Menu.find({});
+      
+      res.render('home' , { title: 'Cexec Cofee - Home', menu } );
     } catch (error) {
       res.status(500).send({message: error.message || "Error Occured" });
     }

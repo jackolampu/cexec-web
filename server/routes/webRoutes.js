@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const recipeController = require('../controllers/controller');
+const Controller = require('../controllers/controller');
 
-router.get('/', recipeController.homepage);
+router.get('/', Controller.homepage);
 /*
-router.get('/', recipeController.homepage);
-router.get('/recipe/:id', recipeController.exploreRecipe );
-router.get('/categories', recipeController.exploreCategories);
-router.get('/categories/:id', recipeController.exploreCategoriesById);
-router.post('/search', recipeController.searchRecipe);
-router.get('/explore-latest', recipeController.exploreLatest);
-router.get('/explore-random', recipeController.exploreRandom);
-router.get('/submit-recipe', recipeController.submitRecipe);
-router.post('/submit-recipe', recipeController.submitRecipeOnPost);
+router.get('/', Controller.homepage);
+router.get('/recipe/:id', Controller.exploreRecipe );
+router.get('/categories', Controller.exploreCategories);
+router.get('/categories/:id', Controller.exploreCategoriesById);
+router.post('/search', Controller.searchRecipe);
+router.get('/explore-latest', Controller.exploreLatest);
+router.get('/explore-random', Controller.exploreRandom);
+router.get('/submit-recipe', Controller.submitRecipe);
+router.post('/submit-recipe', Controller.submitRecipeOnPost);
 */
 
  

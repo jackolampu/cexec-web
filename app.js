@@ -15,6 +15,7 @@ const convertSass = require("sass-folder-converter");
 
 // Create express instance :
 const app = express();
+var engine = require('ejs-locals');
 const port = process.env.PORT || 3001;
 
 require('dotenv').config();
@@ -39,8 +40,12 @@ app.use(fileUpload());
 
 app.set('layout', './layouts/main');
 
+// use ejs-locals for all ejs templates:
+app.engine('ejs', engine);
+
 // Setup view engine :
 app.set('view engine', 'ejs');
+
 
 const routes = require('./server/routes/webRoutes.js')
 app.use('/', routes);
