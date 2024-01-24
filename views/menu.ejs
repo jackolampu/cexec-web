@@ -1,31 +1,54 @@
 <% if( menu != '') { %>
 
-    <div class="d-flex justify-content-center gap-3">
-        <button class="btn btn-outline-warning filter-btn active" data-filter="all">All</button>
-        <button class="btn btn-outline-warning filter-btn" data-filter="burger">Ice Cream</button>
-        <button class="btn btn-outline-warning filter-btn" data-filter="chicken">Cofee</button>
-        <button class="btn btn-outline-warning filter-btn" data-filter="pizza">Choco & Macha</button>
-        <button class="btn btn-outline-warning filter-btn" data-filter="sweets">Float</button>
-        <button class="btn btn-outline-warning filter-btn" data-filter="spicy">Sparkling</button>
-        <button class="btn btn-outline-warning filter-btn" data-filter="spicy">Ice Blended</button>
-        <button class="btn btn-outline-warning filter-btn" data-filter="spicy">Waffle & Sweets</button>
-        <button class="btn btn-outline-warning filter-btn" data-filter="spicy">Savoury</button>
-        
+<div class="d-flex justify-content-center gap-3">
+  <button class="btn btn-outline-warning filter-btn active" data-filter="all">
+    All
+  </button>
+  <button class="btn btn-outline-warning filter-btn" data-filter="burger">
+    Ice Cream
+  </button>
+  <button class="btn btn-outline-warning filter-btn" data-filter="chicken">
+    Cofee
+  </button>
+  <button class="btn btn-outline-warning filter-btn" data-filter="pizza">
+    Choco & Macha
+  </button>
+  <button class="btn btn-outline-warning filter-btn" data-filter="sweets">
+    Float
+  </button>
+  <button class="btn btn-outline-warning filter-btn" data-filter="spicy">
+    Sparkling
+  </button>
+  <button class="btn btn-outline-warning filter-btn" data-filter="spicy">
+    Ice Blended
+  </button>
+  <button class="btn btn-outline-warning filter-btn" data-filter="spicy">
+    Waffle & Sweets
+  </button>
+  <button class="btn btn-outline-warning filter-btn" data-filter="spicy">
+    Savoury
+  </button>
+</div>
+<div class="row row-cols-3 row-cols-md-4 g-4 my-3">
+  <% menu.forEach(item => { %>
+  <div class="col food-item" data-categories="<%-item.category %>">
+    <div class="card h-100">
+      <img src="img/menu/<%-item.image %>" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title"><%-item.name %></h5>
+        <h5 class="card-text price fw-semibold price text-warning">
+          RM <%-item.price %>
+        </h5>
+        <button
+          class="add-to-cart btn btn-outline-warning position-absolute bottom-0 end-0 translate-middle"
+        >
+          +
+        </button>
+      </div>
     </div>
-    <div class="row row-cols-3 row-cols-md-4 g-4 my-3">
+  </div>
 
-      <% menu.forEach(item => { %>
-        <div class="col food-item" data-categories="pizza">
-            <div class="card h-100">
-              <img src="assets/pic12.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"><%-item.name %></h5>
-                <h5 class="card-text price fw-semibold price text-warning">RM <%-item.price %></h5>
-                <button class="add-to-cart btn btn-outline-warning position-absolute bottom-0 end-0 translate-middle">+</button>
-              </div>
-            </div>
-        </div>
-        
-      <% }); } else { %>
-        <p>No item found.</p>
-      <% } %>
+  <% }); } else { %>
+  <p>No item found.</p>
+  <% } %>
+</div>
