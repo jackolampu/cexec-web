@@ -10,7 +10,7 @@ exports.homepage = async(req, res) => {
     try {
       
       const menu = await Menu.find();
-      console.log('Menu Data:', menu); 
+      
       
       res.render('home' , { title: 'Cexec Cofee - Home', menu });
     } catch (error) {

@@ -31,6 +31,10 @@ const menuSchema = new mongoose.Schema({
     type: Boolean,
     required: 'This field is required.'
   },
+  isSpecial: {
+    type: Boolean,
+    required: 'This field is required.'
+  }
 });
 
 
