@@ -9,9 +9,10 @@ const Menu = require('../models/menu');
 exports.homepage = async(req, res) => {
     try {
       
-      const menu = await Menu.find({});
+      const menu = await Menu.find();
+      console.log('Menu Data:', menu); 
       
-      res.render('home' , { title: 'Cexec Cofee - Home', menu } );
+      res.render('home' , { title: 'Cexec Cofee - Home', menu });
     } catch (error) {
       res.status(500).send({message: error.message || "Error Occured" });
     }

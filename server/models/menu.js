@@ -30,11 +30,9 @@ const menuSchema = new mongoose.Schema({
   isAvailable: {
     type: Boolean,
     required: 'This field is required.'
-  }
+  },
 });
 
-menuSchema.index({ name: 'text', description: 'text' });
-// WildCard Indexing
-//menuSchema.index({ "$**" : 'text' });
+
 
 module.exports = mongoose.model('menu', menuSchema);
